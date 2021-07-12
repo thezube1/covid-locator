@@ -1,7 +1,8 @@
-<h1>Covid Locator<h1/>
+# Covid Locator
 
-<p>
 An app which will quickly tell you covid statistics based on which county you're in.
-<p/>
- 
+
+Run the project with 
+```
 yarn dev
+```
