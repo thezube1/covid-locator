@@ -1,19 +1,23 @@
 const axios = require("axios");
 const Papa = require("papaparse");
+import convertRegion from "../../utils/convertRegion";
 
 export default function handler(req, res) {
   if (req.method === "POST") {
     //https://dev.socrata.com/foundry/data.cdc.gov/8xkx-amqh
-    axios
-      .get("https://data.cdc.gov/resource/8xkx-amqh.json?recip_state=WA")
-      .then((res) => console.log(res.data));
+
     const state = req.body.state;
+    const county = req.body.county;
     const counties = req.body.county.split(" ");
+    counties.push(county);
 
     // dates
     const datetime = new Date();
     const datetime_2 = new Date();
     datetime_2.setDate(datetime_2.getDate() - 10);
+
+    const vaccine_date = new Date();
+    vaccine_date.setDate(vaccine_date.getDate() - 1);
 
     // most recent data
     const csv_data = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${(
@@ -68,9 +72,29 @@ export default function handler(req, res) {
               });
             }
           }
-          res.status(200).send({
-            total_cases: newCases,
-            ten_day_cases: newCases - oldCases,
+
+          let vaccinated = 0;
+
+          counties.map((county) => {
+            axios
+              .get(
+                `https://data.cdc.gov/resource/8xkx-amqh.json?recip_state=${convertRegion(
+                  state,
+                  2
+                )}&recip_county=${county}&date=${
+                  vaccine_date.toISOString().split("T")[0] + "T00:00:00.000"
+                }`
+              )
+              .then((data) => {
+                if (data.data.length === 1) {
+                  vaccinated = data.data[0].series_complete_pop_pct;
+                  res.status(200).send({
+                    total_cases: newCases,
+                    ten_day_cases: newCases - oldCases,
+                    pec_vaccinated: vaccinated,
+                  });
+                }
+              });
           });
         })
       )

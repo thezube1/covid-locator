@@ -10,6 +10,7 @@ class LocatePage extends Component {
     state: undefined,
     county: undefined,
     cases: undefined,
+    pec_vac: undefined,
     loading: false,
   };
 
@@ -42,7 +43,11 @@ class LocatePage extends Component {
               state: data.data.address.state,
             })
             .then((data) =>
-              this.setState({ cases: data.data, loading: false })
+              this.setState({
+                cases: data.data,
+                loading: false,
+                pec_vac: data.data.pec_vaccinated,
+              })
             );
         });
     }
@@ -88,6 +93,9 @@ class LocatePage extends Component {
                   {this.state.cases.ten_day_cases
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </div>
+                <div className="locate-data">
+                  Fully Vaccinated: {this.state.pec_vac}%
                 </div>
               </div>
             ) : (
