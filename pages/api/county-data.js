@@ -4,8 +4,6 @@ import convertRegion from "../../utils/convertRegion";
 
 export default function handler(req, res) {
   if (req.method === "POST") {
-    //https://dev.socrata.com/foundry/data.cdc.gov/8xkx-amqh
-
     const state = req.body.state;
     const county = req.body.county;
     const counties = req.body.county.split(" ");
@@ -101,3 +99,9 @@ export default function handler(req, res) {
       .catch((err) => console.log(err));
   }
 }
+
+// Documentation
+
+// Vaccine docs: https://dev.socrata.com/foundry/data.cdc.gov/8xkx-amqh
+// COVID Infection Docs: https://github.com/CSSEGISandData/COVID-19
+// Reverse Geolocator: https://nominatim.org/release-docs/latest/api/Reverse/

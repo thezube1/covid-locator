@@ -6,11 +6,17 @@ class Navbar extends Component {
   render() {
     return (
       <div id="navbar-wrapper">
-        <Link href="/">
-          <div id="navbar-title">
-            <span id="navbar-title-red">COVID</span> Locater
-          </div>
-        </Link>
+        <div id="navbar-content">
+          <Link href="/">
+            <div id="navbar-title">
+              <span id="navbar-title-red">COVID</span> Locator
+            </div>
+          </Link>
+
+          <Link href="/about">
+            <div className="navbar-item">About</div>
+          </Link>
+        </div>
       </div>
     );
   }

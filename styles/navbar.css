@@ -1,16 +1,45 @@
 #navbar-wrapper {
   position: fixed;
-  left: 15px;
-  top: 15px;
+  width: 100%;
+}
+
+#navbar-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 15px;
 }
 
 #navbar-title {
-  padding: 10px;
   font-family: "Cabin";
   font-size: 30px;
   color: rgb(31, 31, 31);
   cursor: pointer;
+  margin-right: 30px;
 }
 #navbar-title-red {
   color: rgb(248, 76, 76);
+}
+
+.navbar-item {
+  font-family: "Cabin";
+  font-size: 20px;
+  color: rgb(31, 31, 31);
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.navbar-item::after {
+  content: "";
+  display: block;
+  border-bottom: 3px solid rgb(248, 76, 76);
+  width: 0%;
+  position: absolute;
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+}
+
+.navbar-item:hover:after {
+  width: 53px;
 }

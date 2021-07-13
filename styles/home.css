@@ -19,3 +19,15 @@
 #home-covid {
   color: rgb(248, 76, 76);
 }
+
+@media screen and (max-width: 1300px) {
+  #home-title {
+    font-size: 100px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  #home-title {
+    font-size: 50px;
+  }
+}
