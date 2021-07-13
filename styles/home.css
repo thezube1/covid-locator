@@ -1,0 +1,21 @@
+#home-wrapper {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+#home-content {
+  display: grid;
+  justify-items: center;
+}
+
+#home-title {
+  color: rgb(31, 31, 31);
+  margin-bottom: 50px;
+}
+
+#home-covid {
+  color: rgb(248, 76, 76);
+}
