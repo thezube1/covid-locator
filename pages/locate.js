@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { geolocated } from "react-geolocated";
 import axios from "axios";
+
 import Navbar from "../components/navbar/navbar";
+import Results from "../components/results/results";
+import Slider from "../components/slider/slider";
+import Analysis from "../components/results/analysis";
 
 class LocatePage extends Component {
   state = {
@@ -12,6 +16,7 @@ class LocatePage extends Component {
     cases: undefined,
     pec_vac: undefined,
     loading: false,
+    statistics: true,
   };
 
   canTrack = () => {
@@ -52,6 +57,10 @@ class LocatePage extends Component {
         });
     }
   };
+
+  handleStatChange = (isStat) => {
+    this.setState({ statistics: isStat });
+  };
   render() {
     return (
       <>
@@ -76,35 +85,23 @@ class LocatePage extends Component {
               false
             )}
             {this.state.data && this.state.cases ? (
-              <div>
-                <div className="locate-data">
-                  County:{" "}
-                  <span className="locate-bold">{this.state.county}</span>
-                </div>
-                <div className="locate-data">
-                  State: <span className="locate-bold">{this.state.state}</span>
-                </div>
+              <div style={{ display: "grid", justifyItems: "center" }}>
+                {this.state.statistics ? (
+                  <Results
+                    cases={this.state.cases}
+                    county={this.state.county}
+                    state={this.state.state}
+                    pec_vac={this.state.pec_vac}
+                  />
+                ) : (
+                  <Analysis pec_vac={80} />
+                )}
 
-                <div className="locate-data">
-                  Total Cases:{" "}
-                  <span className="locate-bold">
-                    {this.state.cases.total_cases
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                  </span>
-                </div>
-                <div className="locate-data">
-                  Cases In 10 Days:{" "}
-                  <span className="locate-bold">
-                    {this.state.cases.ten_day_cases
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                  </span>
-                </div>
-                <div className="locate-data">
-                  Fully Vaccinated:{" "}
-                  <span className="locate-bold">{this.state.pec_vac}%</span>
-                </div>
+                <Slider
+                  statistics={this.state.statistics}
+                  enableStats={() => this.setState({ statistics: true })}
+                  disableStats={() => this.setState({ statistics: false })}
+                />
               </div>
             ) : (
               false

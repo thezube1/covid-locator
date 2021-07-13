@@ -46,3 +46,39 @@ a {
   border-color: rgb(201, 49, 49);
   background-color: rgb(201, 49, 49);
 }
+
+.slider-wrapper {
+  background-color: rgb(238, 238, 238);
+  margin-top: 30px;
+  border-radius: 100px;
+  width: 200px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  position: relative;
+}
+
+.slider-button {
+  background: none;
+  border: none;
+  font-family: "Cabin";
+  cursor: pointer;
+  padding: 0px 15px;
+  height: 80%;
+  z-index: 1;
+}
+
+.slider {
+  position: absolute;
+  width: 70px;
+  height: 30px;
+  background-color: white;
+  z-index: 0;
+  transition: all 0.5s ease;
+  border-radius: 100px;
+  left: 9px;
+  box-shadow: 0px 0px 2px 2px#d4d4d4;
+}

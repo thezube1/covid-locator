@@ -8,12 +8,13 @@
 
 #locate-content {
   display: grid;
-  justify-items: center;
+  justify-content: center;
 }
 
 #locate-trigger {
   border-radius: 200px;
   width: 230px;
+  margin-bottom: 20px;
 }
 
 .locate-error {
@@ -23,7 +24,7 @@
 }
 
 .locate-data {
-  margin-top: 20px;
+  margin-bottom: 20px;
   font-family: "Cabin";
   color: rgb(31, 31, 31);
   border-left-style: solid;
@@ -35,4 +36,38 @@
 
 .locate-bold {
   font-weight: 900;
+}
+
+#results-wrapper {
+  height: 180px;
+}
+
+#analysis-wrapper {
+  height: 180px;
+}
+
+.analysis-text-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.analysis-text {
+  font-family: "Cabin";
+  font-size: 15px;
+  color: rgb(31, 31, 31);
+  margin-left: 10px;
+}
+
+.analysis-emoji {
+  width: 30px;
+  height: 30px;
+  color: rgb(74, 233, 114);
+}
+
+.emoji-yellow {
+  color: rgb(255, 196, 0);
+}
+
+.emoji-red {
+  color: rgb(248, 76, 76);
 }
