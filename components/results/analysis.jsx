@@ -7,17 +7,17 @@ class Analysis extends Component {
     if (this.props.pec_vac >= 70) {
       return [
         "Reached 70% vaccine goal",
-        <FaGrinAlt className="analysis-emoji" />,
+        <FaGrinAlt className="analysis-emoji" key={0} />,
       ];
     } else if (this.props.pec_vac >= 60) {
       return [
         "Almost met 70% vaccine goal",
-        <FaSmile className="analysis-emoji emoji-yellow" />,
+        <FaSmile className="analysis-emoji emoji-yellow" key={1} />,
       ];
     } else {
       return [
         "Not enough vaccinations",
-        <FaMeh className="analysis-emoji emoji-red" />,
+        <FaMeh className="analysis-emoji emoji-red" key={2} />,
       ];
     }
   };
