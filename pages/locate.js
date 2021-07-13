@@ -78,8 +78,14 @@ class LocatePage extends Component {
                 <div className="locate-data">State: {this.state.state}</div>
 
                 <div className="locate-data">
-                  Cases:{" "}
-                  {this.state.cases
+                  Total Cases:{" "}
+                  {this.state.cases.total_cases
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </div>
+                <div className="locate-data">
+                  Cases In 10 Days:{" "}
+                  {this.state.cases.ten_day_cases
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </div>
