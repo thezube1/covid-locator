@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { geolocated } from "react-geolocated";
 import axios from "axios";
+import Navbar from "../components/navbar/navbar";
 
 class LocatePage extends Component {
   state = {
+    data: undefined,
     trackable: undefined,
-    key: "124376bc32a1c1bbddcba8ec1df6ba20",
+    state: undefined,
+    county: undefined,
+    cases: undefined,
   };
 
   canTrack = () => {
@@ -16,27 +20,71 @@ class LocatePage extends Component {
       this.setState({ trackable: false });
     } else {
       this.setState({
+        data: false,
         trackable: true,
       });
-
       axios
         .get(
-          `http://api.positionstack.com/v1/reverse?access_key=${this.state.key}&query=${this.props.coords.latitude},${this.props.coords.longitude}`
+          `https://nominatim.openstreetmap.org/reverse?lat=${this.props.coords.latitude}&lon=${this.props.coords.longitude}&format=json`
         )
         .then((data) => {
-          console.log(data.data);
+          this.setState({
+            data: data.data.address,
+            state: data.data.address.state,
+            county: data.data.address.county,
+          });
+          axios
+            .post("/api/county-data", {
+              county: data.data.address.county,
+              state: data.data.address.state,
+            })
+            .then((data) => this.setState({ cases: data.data }));
         });
     }
   };
   render() {
     return (
-      <div id="locate-wrapper">
-        <div>
-          <button className="button" onClick={this.canTrack}>
-            Find Location
-          </button>
+      <>
+        <Navbar />
+
+        <div id="locate-wrapper">
+          <div id="locate-content">
+            <button
+              id="locate-trigger"
+              className="button"
+              onClick={this.canTrack}
+            >
+              {this.state.data !== false && this.state.cases !== false ? (
+                <div>Find Location Data</div>
+              ) : (
+                <div>Loading</div>
+              )}
+            </button>
+            {this.state.trackable === false ? (
+              <div className="locate-error">
+                Tracking not currently available
+              </div>
+            ) : (
+              false
+            )}
+            {this.state.data && this.state.cases ? (
+              <div>
+                <div className="locate-data">County: {this.state.county}</div>
+                <div className="locate-data">State: {this.state.state}</div>
+
+                <div className="locate-data">
+                  Cases:{" "}
+                  {this.state.cases
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </div>
+              </div>
+            ) : (
+              false
+            )}
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }
@@ -45,5 +93,5 @@ export default geolocated({
   positionOptions: {
     enableHighAccuracy: false,
   },
-  userDecisionTimeout: 5000,
+  userDecisionTimeout: 10,
 })(LocatePage);

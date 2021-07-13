@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import Navbar from "../components/navbar/navbar";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
+      <Navbar />
       <div id="home-wrapper">
         <div id="home-content">
           <div className="title" id="home-title">

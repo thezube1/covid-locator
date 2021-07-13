@@ -1,0 +1,16 @@
+#navbar-wrapper {
+  position: fixed;
+  left: 15px;
+  top: 15px;
+}
+
+#navbar-title {
+  padding: 10px;
+  font-family: "Cabin";
+  font-size: 30px;
+  color: rgb(31, 31, 31);
+  cursor: pointer;
+}
+#navbar-title-red {
+  color: rgb(248, 76, 76);
+}

@@ -5,3 +5,30 @@
   justify-content: center;
   align-items: center;
 }
+
+#locate-content {
+  display: grid;
+  justify-items: center;
+}
+
+#locate-trigger {
+  border-radius: 200px;
+  width: 230px;
+}
+
+.locate-error {
+  margin-top: 20px;
+  color: red;
+  transition: all 0.5s;
+}
+
+.locate-data {
+  margin-top: 20px;
+  font-family: "Cabin";
+  color: rgb(31, 31, 31);
+  border-left-style: solid;
+  border-left-color: rgb(248, 76, 76);
+  border-width: 2px;
+  padding-left: 20px;
+  margin-right: 0px;
+}

@@ -18,17 +18,17 @@ a {
 .title {
   font-size: 200px;
   font-family: "Cabin";
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .button {
-  border-radius: 50px;
+  border-radius: 100px;
   border-color: rgb(248, 76, 76);
   outline: none;
   background: none;
   border-style: solid;
   border-width: 2px;
-  padding: 15px;
+  padding: 15px 30px;
   font-size: 20px;
   font-family: "Cabin";
   font-weight: 900;
