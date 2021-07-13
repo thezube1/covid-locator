@@ -71,31 +71,39 @@ class LocatePage extends Component {
               )}
             </button>
             {this.state.trackable === false ? (
-              <div className="locate-error">
-                Tracking not currently available
-              </div>
+              <div className="locate-error">Please allow location access</div>
             ) : (
               false
             )}
             {this.state.data && this.state.cases ? (
               <div>
-                <div className="locate-data">County: {this.state.county}</div>
-                <div className="locate-data">State: {this.state.state}</div>
+                <div className="locate-data">
+                  County:{" "}
+                  <span className="locate-bold">{this.state.county}</span>
+                </div>
+                <div className="locate-data">
+                  State: <span className="locate-bold">{this.state.state}</span>
+                </div>
 
                 <div className="locate-data">
                   Total Cases:{" "}
-                  {this.state.cases.total_cases
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  <span className="locate-bold">
+                    {this.state.cases.total_cases
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </span>
                 </div>
                 <div className="locate-data">
                   Cases In 10 Days:{" "}
-                  {this.state.cases.ten_day_cases
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  <span className="locate-bold">
+                    {this.state.cases.ten_day_cases
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </span>
                 </div>
                 <div className="locate-data">
-                  Fully Vaccinated: {this.state.pec_vac}%
+                  Fully Vaccinated:{" "}
+                  <span className="locate-bold">{this.state.pec_vac}%</span>
                 </div>
               </div>
             ) : (
