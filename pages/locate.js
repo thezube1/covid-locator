@@ -10,6 +10,7 @@ class LocatePage extends Component {
     state: undefined,
     county: undefined,
     cases: undefined,
+    loading: false,
   };
 
   canTrack = () => {
@@ -22,6 +23,7 @@ class LocatePage extends Component {
       this.setState({
         data: false,
         trackable: true,
+        loading: true,
       });
       axios
         .get(
@@ -33,12 +35,15 @@ class LocatePage extends Component {
             state: data.data.address.state,
             county: data.data.address.county,
           });
+
           axios
             .post("/api/county-data", {
               county: data.data.address.county,
               state: data.data.address.state,
             })
-            .then((data) => this.setState({ cases: data.data }));
+            .then((data) =>
+              this.setState({ cases: data.data, loading: false })
+            );
         });
     }
   };
@@ -54,7 +59,7 @@ class LocatePage extends Component {
               className="button"
               onClick={this.canTrack}
             >
-              {this.state.data !== false && this.state.cases !== false ? (
+              {this.state.loading === false ? (
                 <div>Find Location Data</div>
               ) : (
                 <div>Loading</div>
