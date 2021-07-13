@@ -94,7 +94,7 @@ class LocatePage extends Component {
                     pec_vac={this.state.pec_vac}
                   />
                 ) : (
-                  <Analysis pec_vac={80} />
+                  <Analysis pec_vac={this.state.pec_vac} />
                 )}
 
                 <Slider
