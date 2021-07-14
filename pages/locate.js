@@ -85,24 +85,29 @@ class LocatePage extends Component {
               false
             )}
             {this.state.data && this.state.cases ? (
-              <div style={{ display: "grid", justifyItems: "center" }}>
-                {this.state.statistics ? (
-                  <Results
-                    cases={this.state.cases}
-                    county={this.state.county}
-                    state={this.state.state}
-                    pec_vac={this.state.pec_vac}
-                  />
-                ) : (
-                  <Analysis pec_vac={this.state.pec_vac} />
-                )}
-
+              <>
+                <div style={{ display: "grid", justifyContent: "center" }}>
+                  {this.state.statistics ? (
+                    <Results
+                      cases={this.state.cases}
+                      county={this.state.county}
+                      state={this.state.state}
+                      pec_vac={this.state.pec_vac}
+                    />
+                  ) : (
+                    <Analysis
+                      pec_vac={this.state.pec_vac}
+                      cases={this.state.cases}
+                      fat_rat={this.state.cases.fatality_ratio}
+                    />
+                  )}
+                </div>
                 <Slider
                   statistics={this.state.statistics}
                   enableStats={() => this.setState({ statistics: true })}
                   disableStats={() => this.setState({ statistics: false })}
                 />
-              </div>
+              </>
             ) : (
               false
             )}

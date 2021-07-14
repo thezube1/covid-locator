@@ -45,6 +45,7 @@ export default function handler(req, res) {
 
           let newCases = 0;
           let oldCases = 0;
+          let fatalityRatio = 0;
 
           for (const property in dataNew_.data) {
             const state_ = dataNew_.data[property][2];
@@ -54,6 +55,7 @@ export default function handler(req, res) {
               counties.map((county) => {
                 if (county_ === county) {
                   newCases = dataNew_.data[property][7];
+                  fatalityRatio = dataNew_.data[property][13];
                 }
               });
             }
@@ -90,6 +92,7 @@ export default function handler(req, res) {
                     total_cases: newCases,
                     ten_day_cases: newCases - oldCases,
                     pec_vaccinated: vaccinated,
+                    fatality_ratio: fatalityRatio,
                   });
                 }
               });

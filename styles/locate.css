@@ -8,7 +8,7 @@
 
 #locate-content {
   display: grid;
-  justify-content: center;
+  justify-items: center;
 }
 
 #locate-trigger {
@@ -44,11 +44,13 @@
 
 #analysis-wrapper {
   height: 180px;
+  margin-left: 20px;
 }
 
 .analysis-text-wrapper {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .analysis-text {
