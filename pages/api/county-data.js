@@ -21,7 +21,7 @@ export default function handler(req, res) {
     const csv_data = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${(
       "0" +
       (datetime.getMonth() + 1)
-    ).slice(-2)}-${("0" + (datetime.getDate() - 1)).slice(
+    ).slice(-2)}-${("0" + (datetime.getDate() - 2)).slice(
       -2
     )}-${datetime.getFullYear()}.csv`;
 
