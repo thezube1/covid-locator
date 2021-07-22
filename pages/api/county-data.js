@@ -8,6 +8,7 @@ export default function handler(req, res) {
     const county = req.body.county;
     const counties = req.body.county.split(" ");
     counties.push(county);
+    counties.push(`${county} County`);
 
     // dates
     const datetime = new Date();
@@ -73,6 +74,9 @@ export default function handler(req, res) {
             }
           }
 
+          console.log(state, county, counties);
+          console.log(fatalityRatio);
+
           let vaccinated = 0;
 
           counties.map((county) => {
@@ -100,6 +104,10 @@ export default function handler(req, res) {
         })
       )
       .catch((err) => console.log(err));
+  } else {
+    res.send({
+      data: "Not a POST",
+    });
   }
 }
 
