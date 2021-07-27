@@ -40,6 +40,7 @@ class LocatePage extends Component {
             data: data.data.address,
             state: data.data.address.state,
             county: data.data.address.county,
+            country: data.data.address.country,
           });
 
           axios
