@@ -31,6 +31,12 @@ class LocatePage extends Component {
         trackable: true,
         loading: true,
       });
+
+      axios.post("/api/covid-statistics", {
+        latitude: this.props.coords.latitude,
+        longitude: this.props.coords.longitude,
+      });
+      /*
       axios
         .get(
           `https://nominatim.openstreetmap.org/reverse?lat=${this.props.coords.latitude}&lon=${this.props.coords.longitude}&format=json`
@@ -56,6 +62,8 @@ class LocatePage extends Component {
               })
             );
         });
+
+        */
     }
   };
 
@@ -86,6 +94,9 @@ class LocatePage extends Component {
               false
             )}
             {this.state.data && this.state.cases ? (
+              <div>Test</div>
+            ) : (
+              /*
               <>
                 <div style={{ display: "grid", justifyContent: "center" }}>
                   {this.state.statistics ? (
@@ -109,7 +120,7 @@ class LocatePage extends Component {
                   disableStats={() => this.setState({ statistics: false })}
                 />
               </>
-            ) : (
+              */
               false
             )}
           </div>
