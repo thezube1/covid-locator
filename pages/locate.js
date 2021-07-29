@@ -9,12 +9,9 @@ import Analysis from "../components/results/analysis";
 
 class LocatePage extends Component {
   state = {
+    specialLayout: false,
     data: undefined,
     trackable: undefined,
-    state: undefined,
-    county: undefined,
-    cases: undefined,
-    pec_vac: undefined,
     loading: false,
     statistics: true,
   };
@@ -27,43 +24,21 @@ class LocatePage extends Component {
       this.setState({ trackable: false });
     } else {
       this.setState({
-        data: false,
         trackable: true,
         loading: true,
       });
 
-      axios.post("/api/covid-statistics", {
-        latitude: this.props.coords.latitude,
-        longitude: this.props.coords.longitude,
-      });
-      /*
       axios
-        .get(
-          `https://nominatim.openstreetmap.org/reverse?lat=${this.props.coords.latitude}&lon=${this.props.coords.longitude}&format=json`
-        )
+        .post("/api/covid-statistics", {
+          latitude: this.props.coords.latitude,
+          longitude: this.props.coords.longitude,
+        })
         .then((data) => {
           this.setState({
-            data: data.data.address,
-            state: data.data.address.state,
-            county: data.data.address.county,
-            country: data.data.address.country,
+            loading: false,
+            data: data.data,
           });
-
-          axios
-            .post("/api/county-data", {
-              county: data.data.address.county,
-              state: data.data.address.state,
-            })
-            .then((data) =>
-              this.setState({
-                cases: data.data,
-                loading: false,
-                pec_vac: data.data.pec_vaccinated,
-              })
-            );
         });
-
-        */
     }
   };
 
@@ -93,8 +68,19 @@ class LocatePage extends Component {
             ) : (
               false
             )}
-            {this.state.data && this.state.cases ? (
-              <div>Test</div>
+            {this.state.data && !this.state.loading ? (
+              <>
+                <div style={{ display: "grid", justifyContent: "center" }}>
+                  {this.state.statistics ? (
+                    <Results
+                      cases={this.state.data.total_cases}
+                      pec_vac={this.state.data.vaccinated}
+                    />
+                  ) : (
+                    <Analysis />
+                  )}
+                </div>
+              </>
             ) : (
               /*
               <>

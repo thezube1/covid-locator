@@ -1,7 +1,8 @@
 const axios = require("axios");
 const fs = require("fs");
 const util = require("util");
-const Papa = require("papaparse");
+
+import defaultFunc from "../../countries/default";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -40,12 +41,11 @@ export default async function handler(req, res) {
 
     // run default case or special case
     if (countryCase === "default") {
-      // run default function
-      console.log("Default has been ran!");
+      // default
+      const defaultReturn = await defaultFunc(country);
+      res.send(defaultReturn);
     } else {
-      console.log(`Special case: ${countryCase}`);
-
-      // import country function
+      // special case
       const countryFunc = await import(`../../countries/${countryCase}`);
       const funcReturn = await countryFunc.default();
       console.log(funcReturn);
