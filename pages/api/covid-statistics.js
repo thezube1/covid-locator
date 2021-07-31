@@ -47,8 +47,7 @@ export default async function handler(req, res) {
     } else {
       // special case
       const countryFunc = await import(`../../countries/${countryCase}`);
-      const funcReturn = await countryFunc.default();
-      console.log(funcReturn);
+      const funcReturn = await countryFunc.default(location);
     }
   } else {
     res.send({
