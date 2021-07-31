@@ -77,7 +77,10 @@ class LocatePage extends Component {
                       special={this.state.data.special}
                     />
                   ) : (
-                    <Analysis />
+                    <Analysis
+                      data={this.state.data}
+                      special={this.state.data.special}
+                    />
                   )}
                 </div>
                 <Slider
