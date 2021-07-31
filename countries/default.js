@@ -45,20 +45,24 @@ export default async (country) => {
   let fatality_ratio = 0;
   let vaccinated = 0;
 
+  let new_temp = [];
+  let old_temp = [];
+  let death_temp = [];
+  let vaccine_temp = [];
+
   // cycle new cases
   for (const property in new_data.data) {
     const country_ = new_data.data[property][3];
     if (country_ === country) {
-      new_cases = new_data.data[property][7];
-      fatality_ratio = new_data.data[property][13];
+      new_temp.push(new_data.data[property][7]);
+      death_temp.push(new_data.data[property][8]);
     }
   }
-
   // cycle old cases
   for (const property in old_data.data) {
     const country_ = old_data.data[property][3];
     if (country_ === country) {
-      old_cases = old_data.data[property][7];
+      old_temp.push(old_data.data[property][7]);
     }
   }
 
@@ -67,12 +71,30 @@ export default async (country) => {
   for (const property in vaccine_data.data) {
     const country_ = vaccine_data.data[property][1];
     if (country_ === country) {
-      vaccinated = vaccine_data.data[property][5];
+      vaccine_temp.push(vaccine_data.data[property][5]);
+      //vaccinated = vaccine_data.data[property][5];
     }
   }
 
+  // add up all data
+  new_temp.map((item) => {
+    new_cases += parseInt(item);
+  });
+  old_temp.map((item) => {
+    old_cases += parseInt(item);
+  });
+  death_temp.map((item) => {
+    fatality_ratio += parseInt(item);
+  });
+  fatality_ratio = fatality_ratio / new_cases;
+
+  vaccine_temp.map((item) => {
+    item === "" ? (vaccinated += 0) : (vaccinated += parseInt(item));
+  });
+
   return {
     special: false,
+    country: country,
     total_cases: new_cases,
     ten_day_cases: new_cases - old_cases,
     vaccinated: vaccinated,

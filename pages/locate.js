@@ -73,13 +73,18 @@ class LocatePage extends Component {
                 <div style={{ display: "grid", justifyContent: "center" }}>
                   {this.state.statistics ? (
                     <Results
-                      cases={this.state.data.total_cases}
-                      pec_vac={this.state.data.vaccinated}
+                      data={this.state.data}
+                      special={this.state.data.special}
                     />
                   ) : (
                     <Analysis />
                   )}
                 </div>
+                <Slider
+                  statistics={this.state.statistics}
+                  enableStats={() => this.setState({ statistics: true })}
+                  disableStats={() => this.setState({ statistics: false })}
+                />
               </>
             ) : (
               /*
@@ -100,11 +105,7 @@ class LocatePage extends Component {
                     />
                   )}
                 </div>
-                <Slider
-                  statistics={this.state.statistics}
-                  enableStats={() => this.setState({ statistics: true })}
-                  disableStats={() => this.setState({ statistics: false })}
-                />
+                
               </>
               */
               false
