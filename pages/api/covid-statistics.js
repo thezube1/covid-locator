@@ -1,6 +1,7 @@
 const axios = require("axios");
 const fs = require("fs");
 const util = require("util");
+const path = require("path");
 
 import defaultFunc from "../../countries/default";
 
@@ -23,9 +24,10 @@ export default async function handler(req, res) {
     // read custom country files
     // variable files returns array
     let files;
+
     const readdir = util.promisify(fs.readdir);
     try {
-      files = await readdir("countries/");
+      files = await readdir("./countries");
     } catch (err) {
       files = [];
     }

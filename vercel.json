@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "api/covid-statistics.js": {
-      "includeFiles": "_files/**"
-    }
-  }
-}
