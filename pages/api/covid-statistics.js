@@ -39,6 +39,8 @@ export default async function handler(req, res) {
       }
     });
 
+    console.log(countryCase);
+
     // run default case or special case
     if (countryCase === "default") {
       // default
