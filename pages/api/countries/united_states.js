@@ -1,6 +1,6 @@
 const Papa = require("papaparse");
 import axios from "axios";
-import convertRegion from "../utils/convertRegion";
+import convertRegion from "../../../utils/convertRegion";
 
 export default async (location) => {
   const county = location.data.address.county;

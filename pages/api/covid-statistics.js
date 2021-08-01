@@ -2,8 +2,9 @@ const axios = require("axios");
 const fs = require("fs");
 const util = require("util");
 const path = require("path");
+const getConfig = require("next/config");
 
-import defaultFunc from "../../countries/default";
+import defaultFunc from "./countries/default";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -27,16 +28,19 @@ export default async function handler(req, res) {
 
     const readdir = util.promisify(fs.readdir);
     try {
-      files = await readdir("/countries");
+      files = await readdir("./pages/api/countries");
     } catch (err) {
+      console.log(err);
       files = [];
     }
+
+    console.log(files);
 
     // scan if country is in files
     // and mark if case is special or default
 
     let countryCase = "default";
-    console.log(files);
+
     files.map((item) => {
       const file = item.replace(".js", "");
       const formatCountry = country.toLowerCase().replace(" ", "_");
@@ -56,7 +60,7 @@ export default async function handler(req, res) {
       res.send(defaultReturn);
     } else {
       // special case
-      const countryFunc = await import(`/countries/${countryCase}`);
+      const countryFunc = await import(`./countries/${countryCase}`);
       const funcReturn = await countryFunc.default(location);
       res.status(200).send(funcReturn);
     }
