@@ -8,7 +8,7 @@ class Results extends Component {
     return (
       <div id="results-wrapper">
         {this.props.special ? (
-          <SpecialResults />
+          <SpecialResults data={this.props.data} />
         ) : (
           <DefaultResults
             country={this.props.data.country}

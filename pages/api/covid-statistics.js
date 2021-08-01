@@ -48,6 +48,7 @@ export default async function handler(req, res) {
       // special case
       const countryFunc = await import(`../../countries/${countryCase}`);
       const funcReturn = await countryFunc.default(location);
+      res.status(200).send(funcReturn);
     }
   } else {
     res.send({
@@ -56,8 +57,28 @@ export default async function handler(req, res) {
   }
 }
 
-// Documentation
+// Database Documentation
 
 // Vaccine docs: https://dev.socrata.com/foundry/data.cdc.gov/8xkx-amqh
 // COVID Infection Docs: https://github.com/CSSEGISandData/COVID-19
 // Reverse Geolocator: https://nominatim.org/release-docs/latest/api/Reverse/
+
+/*
+
+Special Function Regulation:
+
+File Naming -->
+- Always make the file name the formatted version of the country name
+- Must be in all lowercase and all spaces must become '_'
+
+Return values structure -->
+{
+  special: (boolean)
+  data: [
+    [value, display_label, special type (optional i.e percent, num, etc)]
+  ]
+}
+
+MUST ADHERE TO STRUCTURE
+
+*/
