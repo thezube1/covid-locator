@@ -3,7 +3,7 @@ const fs = require("fs");
 const util = require("util");
 const path = require("path");
 
-import defaultFunc from "../../countries/default";
+import defaultFunc from "../../public/countries/default";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 
     const readdir = util.promisify(fs.readdir);
     try {
-      files = await readdir("./countries");
+      files = await readdir("./public/countries");
     } catch (err) {
       files = [];
     }
@@ -56,7 +56,7 @@ export default async function handler(req, res) {
       res.send(defaultReturn);
     } else {
       // special case
-      const countryFunc = await import(`../../countries/${countryCase}`);
+      const countryFunc = await import(`/public/countries/${countryCase}`);
       const funcReturn = await countryFunc.default(location);
       res.status(200).send(funcReturn);
     }
