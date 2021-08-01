@@ -12,10 +12,13 @@ export default async function handler(req, res) {
     const location = await axios.get(
       `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
     );
+
     let regionNames = new Intl.DisplayNames(["en"], { type: "region" });
     const country = regionNames.of(
       location.data.address.country_code.toUpperCase()
     );
+
+    console.log(country, location.data.address.country_code);
 
     // read custom country files
     // variable files returns array
@@ -38,8 +41,6 @@ export default async function handler(req, res) {
         countryCase = formatCountry;
       }
     });
-
-    console.log(countryCase);
 
     // run default case or special case
     if (countryCase === "default") {
