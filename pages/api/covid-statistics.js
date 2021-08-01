@@ -3,7 +3,7 @@ const fs = require("fs");
 const util = require("util");
 const path = require("path");
 
-import defaultFunc from "../../public/countries/default";
+import defaultFunc from "../../countries/default";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
