@@ -34,6 +34,7 @@ export default async function handler(req, res) {
     // and mark if case is special or default
 
     let countryCase = "default";
+    console.log(files);
     files.map((item) => {
       const file = item.replace(".js", "");
       const formatCountry = country.toLowerCase().replace(" ", "_");
