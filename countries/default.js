@@ -4,6 +4,7 @@ import Papa from "papaparse";
 export default async (country) => {
   // create date objects
   const current_date = new Date();
+  current_date.setDate(current_date.getDate() - 1);
   const old_date = new Date();
   old_date.setDate(old_date.getDate() - 10);
 
@@ -11,7 +12,7 @@ export default async (country) => {
   const new_csv = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${(
     "0" +
     (current_date.getMonth() + 1)
-  ).slice(-2)}-${("0" + (current_date.getDate() - 2)).slice(
+  ).slice(-2)}-${("0" + current_date.getDate()).slice(
     -2
   )}-${current_date.getFullYear()}.csv`;
   const old_csv = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${(

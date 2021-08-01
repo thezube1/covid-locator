@@ -14,15 +14,17 @@ class AboutPage extends Component {
             </div>
             <div className="about-text">
               COVID Locator is a free service which allows you to quickly find
-              important COVID statistics about your current location. It is only
-              currently available in the United States and Canada because of
-              database limitations.
+              important COVID statistics about your current location. Detailed
+              statistics are only available in the United States due to database
+              limitations (however country statistics work). We are currently
+              working on fetching more detailed statistics for countries around
+              the world.
             </div>
             <br />
 
             <div className="about-text">
-              The COVID-19 infection data is from John Hopkins University, while
-              the vaccination data is from the CDC.
+              The COVID-19 infection data and some vaccine data is from John
+              Hopkins University, and other vaccination data is from the CDC.
             </div>
           </div>
         </div>

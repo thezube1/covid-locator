@@ -11,6 +11,7 @@ export default async (location) => {
 
   // create date objects
   const current_date = new Date();
+  current_date.setDate(current_date.getDate() - 1);
   const old_date = new Date();
   old_date.setDate(old_date.getDate() - 10);
   const vaccine_date = new Date();
@@ -20,7 +21,7 @@ export default async (location) => {
   const new_csv = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${(
     "0" +
     (current_date.getMonth() + 1)
-  ).slice(-2)}-${("0" + (current_date.getDate() - 2)).slice(
+  ).slice(-2)}-${("0" + current_date.getDate()).slice(
     -2
   )}-${current_date.getFullYear()}.csv`;
   const old_csv = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${(
@@ -92,7 +93,7 @@ export default async (location) => {
     data: [
       [state, "State"],
       [county, "County"],
-      [new_cases, "Total Vaccinated", "num"],
+      [new_cases, "Total Cases", "num"],
       [new_cases - old_cases, "Cases In 10 Days", "num"],
       [vaccinated, "Vaccinated", "percent"],
       [fatality_ratio, "Fatality Ratio"],
