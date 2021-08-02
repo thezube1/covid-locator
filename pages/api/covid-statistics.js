@@ -28,9 +28,7 @@ export default async function handler(req, res) {
     let files;
     const readdir = util.promisify(fs.readdir);
     try {
-      files = await readdir(
-        path.join(serverRuntimeConfig.PROJECT_ROOT, "./countries")
-      );
+      files = await readdir(path.resolve("./public/countries"));
     } catch (err) {
       console.log(err);
       files = [];
