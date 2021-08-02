@@ -1,8 +1,9 @@
-const axios = require("axios");
-const fs = require("fs");
-const util = require("util");
-const path = require("path");
-const getConfig = require("next/config");
+import axios from "axios";
+import path from "path";
+import getConfig from "next/config";
+import util from "util";
+import fs from "fs";
+const { serverRuntimeConfig } = getConfig();
 
 import defaultFunc from "./countries/default";
 
@@ -25,10 +26,11 @@ export default async function handler(req, res) {
     // read custom country files
     // variable files returns array
     let files;
-
     const readdir = util.promisify(fs.readdir);
     try {
-      files = await readdir("./pages/api/countries");
+      files = await readdir(
+        path.join(serverRuntimeConfig.PROJECT_ROOT, "./pages/api/countries")
+      );
     } catch (err) {
       console.log(err);
       files = [];
