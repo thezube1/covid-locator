@@ -72,7 +72,7 @@ export default async (location) => {
 
   let vaccinated = 0;
 
-  const vaccineGet = await Promise.all(
+  await Promise.all(
     counties.map(async (county) => {
       const request = await axios.get(
         `https://data.cdc.gov/resource/8xkx-amqh.json?recip_state=${convertRegion(
@@ -88,6 +88,7 @@ export default async (location) => {
       }
     })
   );
+
   return {
     special: true,
     data: [

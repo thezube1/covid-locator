@@ -1,9 +1,7 @@
 import axios from "axios";
 import path from "path";
-import getConfig from "next/config";
 import util from "util";
 import fs from "fs";
-const { serverRuntimeConfig } = getConfig();
 
 import defaultFunc from "../../public/countries/default";
 
