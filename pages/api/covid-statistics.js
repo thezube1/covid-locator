@@ -19,8 +19,6 @@ export default async function handler(req, res) {
       location.data.address.country_code.toUpperCase()
     );
 
-    console.log(country, location.data.address.country_code); // here
-
     // read custom country files
     // variable files returns array
     let files;
@@ -32,8 +30,6 @@ export default async function handler(req, res) {
       files = [];
     }
 
-    console.log(files);
-
     // scan if country is in files
     // and mark if case is special or default
 
@@ -43,13 +39,9 @@ export default async function handler(req, res) {
       const file = item.replace(".js", "");
       const formatCountry = country.toLowerCase().replace(" ", "_");
       if (file === formatCountry) {
-        console.log(formatCountry); // here
         countryCase = formatCountry;
-        console.log(countryCase); // here
       }
     });
-
-    console.log(countryCase); // here
 
     // run default case or special case
     if (countryCase === "default") {
