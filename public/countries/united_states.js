@@ -3,11 +3,28 @@ import axios from "axios";
 import convertRegion from "../../utils/convertRegion";
 
 export default async (location) => {
+  const latitude = location.data.lat;
+  const longitude = location.data.lon;
   const county = location.data.address.county;
   const state = location.data.address.state;
   const counties = county.split(" ");
   counties.push(county);
   counties.push(`${county} County`);
+
+  // handle census data first
+  const fcc_data = await axios.get(
+    `https://geo.fcc.gov/api/census/area?lat=${latitude}&lon=${longitude}&format=json`
+  );
+
+  const state_fips = fcc_data.data.results[0].state_fips;
+  const county_fips = fcc_data.data.results[0].county_fips.replace(
+    state_fips,
+    ""
+  );
+  const census_data = await axios.get(
+    `https://api.census.gov/data/2019/pep/charagegroups?get=POP&for=county:${county_fips}&in=state:${state_fips}`
+  );
+  console.log(census_data.data);
 
   // create date objects
   const current_date = new Date();
@@ -101,3 +118,22 @@ export default async (location) => {
     ],
   };
 };
+
+// US Census Data instructions
+// https://www.census.gov/data/developers/guidance/api-user-guide.Overview.html
+
+// First you MUST get FIPS information from FCC reverse geolocation
+// Census API doesn't take the name of counties as a string
+
+// -- step 1 --
+
+// https://geo.fcc.gov/api/census/area?lat=47.608013&lon=-122.335167&format=json
+// lat and long can change
+
+// -- step 2 --
+
+// https://api.census.gov/data/2019/pep/charagegroups?get=NAME,POP&for=county:033&in=state:53
+// county = county FIPS (without state fips), and state = state fips
+
+// -- step 3 --
+// retrieve the data
