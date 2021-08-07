@@ -63,7 +63,7 @@ export default async function handler(req, res) {
 
 // Database Documentation
 
-// Vaccine docs: https://dev.socrata.com/foundry/data.cdc.gov/8xkx-amqh
+// CDC Vaccine docs: https://dev.socrata.com/foundry/data.cdc.gov/8xkx-amqh
 // COVID Infection Docs: https://github.com/CSSEGISandData/COVID-19
 // Reverse Geolocator: https://nominatim.org/release-docs/latest/api/Reverse/
 

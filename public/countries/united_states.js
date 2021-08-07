@@ -16,15 +16,12 @@ export default async (location) => {
     `https://geo.fcc.gov/api/census/area?lat=${latitude}&lon=${longitude}&format=json`
   );
 
+  const fips = fcc_data.data.results[0].county_fips;
   const state_fips = fcc_data.data.results[0].state_fips;
   const county_fips = fcc_data.data.results[0].county_fips.replace(
     state_fips,
     ""
   );
-  const census_data = await axios.get(
-    `https://api.census.gov/data/2019/pep/charagegroups?get=POP&for=county:${county_fips}&in=state:${state_fips}`
-  );
-  console.log(census_data.data);
 
   // create date objects
   const current_date = new Date();
@@ -51,8 +48,11 @@ export default async (location) => {
   // make http request
   const new_data_link = axios.get(new_csv);
   const old_data_link = axios.get(old_csv);
+  const census_data = await axios.get(
+    `https://api.census.gov/data/2019/pep/charagegroups?get=POP&for=county:${county_fips}&in=state:${state_fips}`
+  );
 
-  const response = await axios.all([new_data_link, old_data_link]);
+  const response = await axios.all([new_data_link, old_data_link, census_data]);
 
   const new_data = Papa.parse(response[0].data);
   const old_data = Papa.parse(response[1].data);
@@ -61,50 +61,31 @@ export default async (location) => {
   let old_cases = 0;
   let fatality_ratio = 0;
 
-  for (const property in new_data.data) {
-    const state_ = new_data.data[property][2];
-    const county_ = new_data.data[property][1];
+  console.log(response[2].data);
 
-    if (state_ === state) {
-      counties.map((county) => {
-        if (county_ === county) {
-          new_cases = new_data.data[property][7];
-          fatality_ratio = new_data.data[property][13];
-        }
-      });
+  for (const property in new_data.data) {
+    const fips_ = new_data.data[property][0];
+
+    if (fips == fips_) {
+      new_cases = new_data.data[property][7];
+      fatality_ratio = new_data.data[property][13];
     }
   }
   for (const property in old_data.data) {
-    const state_ = old_data.data[property][2];
-    const county_ = old_data.data[property][1];
+    const fips_ = new_data.data[property][0];
 
-    if (state_ === state) {
-      counties.map((county) => {
-        if (county_ === county) {
-          old_cases = old_data.data[property][7];
-        }
-      });
+    if (fips === fips_) {
+      old_cases = old_data.data[property][7];
     }
   }
 
   let vaccinated = 0;
-
-  await Promise.all(
-    counties.map(async (county) => {
-      const request = await axios.get(
-        `https://data.cdc.gov/resource/8xkx-amqh.json?recip_state=${convertRegion(
-          state,
-          2
-        )}&recip_county=${county}&date=${
-          vaccine_date.toISOString().split("T")[0] + "T00:00:00.000"
-        }`
-      );
-
-      if (request.data.length === 1) {
-        vaccinated = request.data[0].series_complete_pop_pct;
-      }
-    })
+  const cdc_request = await axios.get(
+    `https://data.cdc.gov/resource/8xkx-amqh.json?fips=${fips}&date=${
+      vaccine_date.toISOString().split("T")[0] + "T00:00:00.000"
+    }`
   );
+  vaccinated = cdc_request.data[0].series_complete_pop_pct;
 
   return {
     special: true,
