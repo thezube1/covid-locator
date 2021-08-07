@@ -4,7 +4,7 @@ import Papa from "papaparse";
 export default async (country) => {
   // create date objects
   const current_date = new Date();
-  current_date.setDate(current_date.getDate() - 1);
+  current_date.setDate(current_date.getDate() - 2);
   const old_date = new Date();
   old_date.setDate(old_date.getDate() - 10);
 

@@ -28,7 +28,8 @@ export default async (location) => {
 
   // create date objects
   const current_date = new Date();
-  current_date.setDate(current_date.getDate() - 1);
+  current_date.setDate(current_date.getDate() - 2);
+  console.log(current_date);
   const old_date = new Date();
   old_date.setDate(old_date.getDate() - 10);
   const vaccine_date = new Date();
@@ -41,6 +42,7 @@ export default async (location) => {
   ).slice(-2)}-${("0" + current_date.getDate()).slice(
     -2
   )}-${current_date.getFullYear()}.csv`;
+  console.log(new_csv);
   const old_csv = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${(
     "0" +
     (old_date.getMonth() + 1)
