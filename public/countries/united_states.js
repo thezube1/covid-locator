@@ -63,17 +63,25 @@ export default async (location) => {
   let fatality_ratio = 0;
 
   for (const property in new_data.data) {
+    let temp_fips = fips;
+    if (fips[0] == "0") {
+      temp_fips = fips.substring(1);
+    }
     const fips_ = new_data.data[property][0];
 
-    if (fips == fips_) {
+    if (temp_fips == fips_) {
       new_cases = new_data.data[property][7];
       fatality_ratio = new_data.data[property][13];
     }
   }
   for (const property in old_data.data) {
+    let temp_fips = fips;
+    if (fips[0] == "0") {
+      temp_fips = fips.substring(1);
+    }
     const fips_ = new_data.data[property][0];
 
-    if (fips === fips_) {
+    if (temp_fips === fips_) {
       old_cases = old_data.data[property][7];
     }
   }
