@@ -57,11 +57,10 @@ export default async (location) => {
   const new_data = Papa.parse(response[0].data);
   const old_data = Papa.parse(response[1].data);
 
+  const population = response[2].data[1][0];
   let new_cases = 0;
   let old_cases = 0;
   let fatality_ratio = 0;
-
-  console.log(response[2].data);
 
   for (const property in new_data.data) {
     const fips_ = new_data.data[property][0];
@@ -87,8 +86,13 @@ export default async (location) => {
   );
   vaccinated = cdc_request.data[0].series_complete_pop_pct;
 
+  console.log(population);
+  console.log(new_cases);
+  console.log(population / new_cases);
+
   return {
     special: true,
+
     data: [
       [state, "State"],
       [county, "County"],
