@@ -86,9 +86,7 @@ export default async (location) => {
   );
   vaccinated = cdc_request.data[0].series_complete_pop_pct;
 
-  console.log(population);
-  console.log(new_cases);
-  console.log(population / new_cases);
+  const cases_per_100k = Math.round((new_cases / population) * 100000);
 
   return {
     special: true,
@@ -97,6 +95,7 @@ export default async (location) => {
       [state, "State"],
       [county, "County"],
       [new_cases, "Total Cases", "num"],
+      [cases_per_100k, "Cases Per 100,000", "num"],
       [new_cases - old_cases, "Cases In 10 Days", "num"],
       [vaccinated, "Vaccinated", "percent"],
       [fatality_ratio, "Fatality Ratio"],
