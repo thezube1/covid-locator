@@ -27,7 +27,9 @@ export default async (location) => {
   const current_date = new Date();
   current_date.setDate(current_date.getDate() - 2);
   const old_date = new Date();
-  old_date.setDate(old_date.getDate() - 10);
+  old_date.setDate(old_date.getDate() - 12);
+  const older_date = new Date();
+  older_date.setDate(older_date.getDate() - 22);
   const vaccine_date = new Date();
   vaccine_date.setDate(vaccine_date.getDate() - 1);
 
@@ -44,22 +46,35 @@ export default async (location) => {
   ).slice(-2)}-${("0" + (old_date.getDate() - 1)).slice(
     -2
   )}-${old_date.getFullYear()}.csv`;
+  const older_csv = `https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${(
+    "0" +
+    (older_date.getMonth() + 1)
+  ).slice(-2)}-${("0" + (older_date.getDate() - 1)).slice(
+    -2
+  )}-${older_date.getFullYear()}.csv`;
 
   // make http request
   const new_data_link = axios.get(new_csv);
   const old_data_link = axios.get(old_csv);
+  const older_data_link = axios.get(older_csv);
   const census_data = await axios.get(
     `https://api.census.gov/data/2019/pep/charagegroups?get=POP&for=county:${county_fips}&in=state:${state_fips}`
   );
 
-  const response = await axios.all([new_data_link, old_data_link, census_data]);
+  const response = await axios.all([
+    new_data_link,
+    old_data_link,
+    older_data_link,
+    census_data,
+  ]);
 
   const new_data = Papa.parse(response[0].data);
   const old_data = Papa.parse(response[1].data);
-
-  const population = response[2].data[1][0];
+  const older_data = Papa.parse(response[2].data);
+  const population = response[3].data[1][0];
   let new_cases = 0;
   let old_cases = 0;
+  let older_cases = 0;
   let fatality_ratio = 0;
 
   for (const property in new_data.data) {
@@ -79,10 +94,22 @@ export default async (location) => {
     if (fips[0] == "0") {
       temp_fips = fips.substring(1);
     }
-    const fips_ = new_data.data[property][0];
+    const fips_ = old_data.data[property][0];
 
     if (temp_fips === fips_) {
       old_cases = old_data.data[property][7];
+    }
+  }
+
+  for (const property in older_data.data) {
+    let temp_fips = fips;
+    if (fips[0] == "0") {
+      temp_fips = fips.substring(1);
+    }
+    const fips_ = older_data.data[property][0];
+
+    if (temp_fips === fips_) {
+      older_cases = older_data.data[property][7];
     }
   }
 
@@ -97,6 +124,9 @@ export default async (location) => {
   const cases_per_100k = Math.round(
     ((new_cases - old_cases) / population) * 100000
   );
+
+  console.log((new_cases - old_cases) / 10);
+  console.log((old_cases - older_cases) / 10);
 
   return {
     special: true,
