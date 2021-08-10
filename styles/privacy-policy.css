@@ -1,0 +1,28 @@
+#privacy-policy-wrapper {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+}
+
+#privacy-content {
+  max-width: 800px;
+  margin-top: 200px;
+  margin-bottom: 200px;
+}
+
+.privacy-section {
+  margin-bottom: 20px;
+}
+
+.privacy-title {
+  font-size: 100px;
+  margin-bottom: 20px;
+}
+
+.privacy-header {
+  margin-bottom: 20px;
+  color: rgb(31, 31, 31);
+  font-family: "Cabin";
+  font-weight: 900;
+  font-size: 30px;
+}

@@ -125,12 +125,13 @@ export default async (location) => {
     ((new_cases - old_cases) / population) * 100000
   );
 
-  console.log((new_cases - old_cases) / 10);
-  console.log((old_cases - older_cases) / 10);
+  const new_slope = (new_cases - old_cases) / 10;
+  const old_slope = (old_cases - older_cases) / 10;
 
   return {
     special: true,
-
+    new_slope: new_slope,
+    old_slope: old_slope,
     data: [
       [state, "State"],
       [county, "County"],

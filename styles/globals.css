@@ -21,6 +21,12 @@ a {
   font-weight: 700;
 }
 
+.text {
+  font-size: 20px;
+  font-family: "Cabin";
+  color: rgb(31, 31, 31);
+}
+
 .button {
   border-radius: 100px;
   border-color: rgb(248, 76, 76);
