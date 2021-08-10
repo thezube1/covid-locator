@@ -5,6 +5,10 @@
 }
 
 #privacy-content {
+  width: 90vw;
+  display: grid;
+  justify-items: center;
+
   max-width: 800px;
   margin-top: 200px;
   margin-bottom: 200px;
