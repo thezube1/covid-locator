@@ -4,6 +4,7 @@ import "../styles/locate.css";
 import "../styles/navbar.css";
 import "../styles/about.css";
 import "../styles/privacy-policy.css";
+import "../styles/feedback.css";
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;

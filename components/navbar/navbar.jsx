@@ -15,6 +15,7 @@ class Navbar extends Component {
             </div>
           </Link>
           <NavbarItem href="/about" name="About" />
+          <NavbarItem href="/feedback" name="Feedback" custom="feedback-item" />
           <NavbarItem
             href="/privacy-policy"
             custom="privacy-item"

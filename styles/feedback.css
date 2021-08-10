@@ -1,0 +1,15 @@
+#feedback-wrapper {
+  width: 100%;
+  height: 100vh;
+}
+
+#feedback-content {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.feedback-title {
+  font-size: 100px;
+}

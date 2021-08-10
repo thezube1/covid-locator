@@ -48,3 +48,7 @@
 #privacy-item:hover::after {
   width: 114px;
 }
+
+#feedback-item:hover::after {
+  width: 80px;
+}
