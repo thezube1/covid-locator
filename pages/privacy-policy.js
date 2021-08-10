@@ -62,7 +62,7 @@ class PrivacyPolicyPage extends Component {
                 Cookies are files with a small amount of data that are commonly
                 used as anonymous unique identifiers. These are sent to your
                 browser from the websites that you visit and are stored on your
-                device's internal memory. This Service does not use these
+                device&apos;s internal memory. This Service does not use these
                 “cookies” explicitly. However, the app may use third party code
                 and libraries that use “cookies” to collect information and
                 improve their services. You have the option to either accept or
