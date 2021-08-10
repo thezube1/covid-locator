@@ -28,6 +28,7 @@
   color: rgb(31, 31, 31);
   margin-top: 4px;
   cursor: pointer;
+  margin-right: 30px;
 }
 
 .navbar-item::after {
@@ -42,4 +43,8 @@
 
 .navbar-item:hover:after {
   width: 53px;
+}
+
+#privacy-item:hover::after {
+  width: 114px;
 }

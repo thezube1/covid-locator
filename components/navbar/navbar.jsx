@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import Link from "next/link";
+import NavbarItem from "./navbar-item";
 
 class Navbar extends Component {
   state = {};
+
   render() {
     return (
       <div id="navbar-wrapper">
@@ -12,10 +14,12 @@ class Navbar extends Component {
               <span id="navbar-title-red">COVID</span> Locator
             </div>
           </Link>
-
-          <Link href="/about">
-            <div className="navbar-item">About</div>
-          </Link>
+          <NavbarItem href="/about" name="About" />
+          <NavbarItem
+            href="/privacy-policy"
+            custom="privacy-item"
+            name="Privacy Policy"
+          />
         </div>
       </div>
     );
