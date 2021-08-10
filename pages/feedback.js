@@ -10,12 +10,10 @@ class FeedbackPage extends Component {
     feedback: "",
     sent: false,
     incomplete: false,
+    error: false,
   };
 
   handleSubmit = async () => {
-    const key = "bab44c6aca21c9ee66fe3908264acbec";
-    const token =
-      "1846a33928dd79540ac28abb9e7bc4aa22010fa497f379128116fe0cb3dbae9a";
     if (
       this.state.first === "" ||
       this.state.last === "" ||
@@ -24,9 +22,17 @@ class FeedbackPage extends Component {
     ) {
       this.setState({ incomplete: true });
     } else {
-      const link = `https://api.trello.com/1/cards?key=${key}&token=${token}&idList=611234809d772384bb68c13a&name=${this.state.first} ${this.state.last}&desc=Email: ${this.state.email} --> \n\n${this.state.feedback}`;
-      await axios.post(link);
-      this.setState({ sent: true });
+      const request = await axios.post("/api/feedback", {
+        first: this.state.first,
+        last: this.state.last,
+        email: this.state.email,
+        feedback: this.state.feedback,
+      });
+      if (request.data === true) {
+        this.setState({ sent: true });
+      } else {
+        this.setState({ error: true });
+      }
     }
   };
   render() {
@@ -57,6 +63,16 @@ class FeedbackPage extends Component {
                     style={{ color: "red", marginBottom: 20 }}
                   >
                     Please make sure all fields are entered
+                  </div>
+                ) : (
+                  false
+                )}
+                {this.state.error ? (
+                  <div
+                    className="text"
+                    style={{ color: "red", marginBottom: 20 }}
+                  >
+                    An error has occurred
                   </div>
                 ) : (
                   false

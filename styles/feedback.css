@@ -35,12 +35,14 @@
   border: rgb(146, 146, 146);
   border-width: 1px;
   border-style: solid;
+  border-color: rgb(240, 240, 240);
   border-radius: 10px;
   transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   margin-bottom: 20px;
 }
 
 .feedback-input:focus {
+  border-color: rgb(218, 218, 218);
   background-color: white;
 }
 
