@@ -12,10 +12,10 @@ class Slider extends Component {
           }}
         ></div>
         <button className="slider-button" onClick={this.props.enableStats}>
-          Statistics
+          Summary
         </button>
         <button className="slider-button" onClick={this.props.disableStats}>
-          Analysis
+          Breakdown
         </button>
       </div>
     );

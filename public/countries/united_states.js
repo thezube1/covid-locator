@@ -115,9 +115,12 @@ export default async (location) => {
 
   let vaccinated = 0;
   const cdc_request = await axios.get(
+    `https://data.cdc.gov/resource/8xkx-amqh.json?fips=${fips}&date=2022-11-16T00:00:00.000`
+    /*
     `https://data.cdc.gov/resource/8xkx-amqh.json?fips=${fips}&date=${
       vaccine_date.toISOString().split("T")[0] + "T00:00:00.000"
     }`
+  */
   );
   vaccinated = cdc_request.data[0].series_complete_pop_pct;
 
